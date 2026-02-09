@@ -1,9 +1,10 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
+// Initialization moved inside the function to ensure up-to-date API key usage and adherence to guidelines
 export async function askGeminiAboutDoc(question: string): Promise<string> {
+  // Always initialize a new instance before use to ensure the most current environment variables are used
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   try {
     const response = await ai.models.generateContent({
       model: 'gemini-3-flash-preview',
@@ -18,6 +19,7 @@ export async function askGeminiAboutDoc(question: string): Promise<string> {
         topP: 0.9,
       },
     });
+    // Correctly accessing the text property directly on GenerateContentResponse
     return response.text || "죄송합니다. 적절한 답변을 생성하지 못했습니다.";
   } catch (error) {
     console.error("Gemini API Error:", error);

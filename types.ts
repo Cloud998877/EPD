@@ -1,8 +1,19 @@
 
 export enum Status {
   PENDING = 'PENDING',
-  READY = 'READY',
-  INCOMPLETE = 'INCOMPLETE'
+  SUBMITTED = 'SUBMITTED',
+  SUPPLEMENT = 'SUPPLEMENT',
+  FINAL_READY = 'FINAL_READY'
+}
+
+export type LogType = 'STATUS' | 'INQUIRY' | 'ANSWER' | 'SYSTEM';
+
+export interface LogEntry {
+  id: string;
+  type: LogType;
+  content: string;
+  timestamp: string;
+  author: '엔디넥스' | '고객사';
 }
 
 export interface ChecklistItem {
@@ -15,4 +26,6 @@ export interface ChecklistItem {
   description: string;
   isImportant?: boolean;
   status: Status;
+  supplementNote?: string;
+  logs: LogEntry[];
 }
